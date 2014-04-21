@@ -119,8 +119,11 @@ PathFinder::~PathFinder(void){
 }
 
 
-int main(int argc, char** argv){
+//global variable to store the vehicle position and object position
+Point vehicle_position, object_position;
 
+int main(int argc, char **argv) {
+  //set up the map space 
   PathFinder * pathfinder = new PathFinder(40,80);
 
   //set up the map from point to status
@@ -129,15 +132,27 @@ int main(int argc, char** argv){
       pathfinder->pointStatus->insert(std::pair<Point, int> (Point(i,j), map[i][j]));
     }
   }
-
-
-  std::vector<Point> path = pathfinder->findPath(Point(0,0), Point(39,40));
-
-
-  for(int i=0; i< path.size(); i++){
-    printf("%d, %d\n", path[i].x,path[i].y);
+  ros::init(argc, argv, "pathFinder");
+  
+  ros::Subscriber objectPositionSub = nh.subscribe("/detected_position", 1, UpdateObjectPosition);
+  ros::Subscriber vehiclePositionSub = nh.subscribe("/vehicle_position", 1, UpdateVehiclePosition);
+  
+  ros::Publisher pathPub = nh.advertise<path>("/vehicle_path",1);	 
+  
+  ros::Rate r(50);
+  while(ros::ok()) {
+    ros::spinOnce();
+    
+    path cmd = pathfinder->findPath(vehicle_position, object_position);
+    pathPub.publish(cmd);
+        
+    r.sleep();
   }
-
+  
   return 0;
 }
+
+
+
+
 

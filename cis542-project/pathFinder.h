@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
+#include "common.h"
+
 
 // This is a status matrix for the grid map
 int map[40][80] = {
@@ -54,25 +56,6 @@ int map[40][80] = {
 
 
 
-
-class Point{
-public:
-int x,y;
-Point(int xValue=0, int yValue=0){
-x=xValue;
-y=yValue;
-}
-
-bool operator < ( const Point &other) const {
-
-if(x<other.x) return true;
-if(x>other.x) return false;
-
-if(y<other.y) return true;
-if(y>other.y) return false;
-return false;
-}
-};
 
 //Assume the movement is only up down right left, no diagonal movement allowed
 //No wrap arround allowed, the map doesn't allow exceed the boundary ??

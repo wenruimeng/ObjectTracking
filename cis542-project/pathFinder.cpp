@@ -21,17 +21,18 @@ bool PathFinder::validPoint(Point point){
 	  );
 }
 
-
+// doesn't this always return iteration?
 int PathFinder::shortestLength(int iteration=1){
   std::vector<Point> neighbors;
   std::set<Point>::iterator it;
+  // Why allocate newClosed on the heap? make it stack allocated, and you get destruction for free
   std::set<Point> * newClosed = new std::set<Point>;
 
   for(it=closed->begin(); it != closed->end(); it++){
     neighbors=getNeighbors(*it);
     for(int i=0; i< neighbors.size(); i++){
       Point neighbor = neighbors[i];
-
+	  // magic numbers like -1 aren't good here
       if(validPoint(neighbor) && (*open)[neighbor] == -1) return iteration;
 
       if(validPoint(neighbor) && (*open)[neighbor] == 0 && (*pointStatus)[neighbor] !=1){
@@ -40,8 +41,7 @@ int PathFinder::shortestLength(int iteration=1){
       }
     }
   }
-
-
+  // get rid of the delete - make newClosed local, and just swap closed and newClosed here
   delete closed;
   closed = newClosed;
 

@@ -1,6 +1,8 @@
 #ifndef PATH_FINDER
 #define PATH_FINDER
 
+// these are needed by pathFinder.cpp, but not for clients of these types, right?
+// so why are they here?
 #include <vector>
 #include <set>
 #include <map>
@@ -8,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// again, why is this exposted to clients?
 // This is a status matrix for the grid map
 int map[40][80] = {
 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -74,22 +77,29 @@ return false;
 }
 };
 
+// What kind of thing is this supposed to represent? Maybe we should discuss this.
 //Assume the movement is only up down right left, no diagonal movement allowed
 //No wrap arround allowed, the map doesn't allow exceed the boundary ??
 class PathFinder{
 public:
   int width, height;
+  // why is status an int instead of some enumerated type?
  std::map<Point, int>  *pointStatus; //map from point to its status
+ // why is this a map instead of a set?
  std::map<Point, int>  *open; //all untraversed squares
  std::set<Point> *closed; //previous traversed squares
  std::vector<Point> path; //path from start to end
 
+ // should be const (as should various other methods)
 // Return the neighbors of the point, no more than 4 points.
  std::vector<Point> getNeighbors(Point point);
+ // ??
  //valid point is the point in the map bound
  bool validPoint(Point point); 
+ // what is iteration?
  //Use dijkstra shortest path algorithm to get the shortest length
  int shortestLength(int iteration);
+ // what is iteration?
  //get the path which from destination to the start point, the length is less than given length
  std::vector<Point> getPath(Point point, int iteration);
  //find the shortest path from start to the end

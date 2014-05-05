@@ -1,4 +1,5 @@
 #include "pathFinder.h"
+#include "common.h"
 
 std::vector<Point> PathFinder::getNeighbors(Point point){
   std::vector<Point> result;
@@ -136,14 +137,15 @@ int main(int argc, char **argv) {
   
   ros::Subscriber objectPositionSub = nh.subscribe("/detected_position", 1, UpdateObjectPosition);
   ros::Subscriber vehiclePositionSub = nh.subscribe("/vehicle_position", 1, UpdateVehiclePosition);
+
+
+  ros::Publisher pathPub = nh.advertise<Path>("/vehicle_path",1);	 
   
-  ros::Publisher pathPub = nh.advertise<path>("/vehicle_path",1);	 
-  
-  ros::Rate r(50);
+  ros::Rate r(1);
   while(ros::ok()) {
     ros::spinOnce();
     
-    path cmd = pathfinder->findPath(vehicle_position, object_position);
+    Path cmd = pathfinder->findPath(vehicle_position, object_position);
     pathPub.publish(cmd);
         
     r.sleep();

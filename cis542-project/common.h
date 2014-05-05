@@ -5,7 +5,7 @@
 // why are these included here?
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <vector>
 
 class Direction {
 public:
@@ -24,17 +24,26 @@ public:
 };
 
 
-class Position {
-    int x,y;
+class Point{
 public:
-    Position operator +(Direction d);
-    Position operator -(Direction d);
-    Position& operator +=(Direction d);
-    Position& operator -=(Direction d);
-    Position& operator =(Position p);
+int x,y;
+Point(int xValue=0, int yValue=0){
+x=xValue;
+y=yValue;
+}
+
+bool operator < ( const Point &other) const {
+
+if(x<other.x) return true;
+if(x>other.x) return false;
+
+if(y<other.y) return true;
+if(y>other.y) return false;
+return false;
+}
 };
 
-
+typedef std::vector<Point> Path;
 
 
 #endif

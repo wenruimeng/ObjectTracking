@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
+#include "common.h"
 
 // again, why is this exposted to clients?
 // This is a status matrix for the grid map
@@ -57,25 +58,6 @@ int map[40][80] = {
 
 
 
-
-class Point{
-public:
-int x,y;
-Point(int xValue=0, int yValue=0){
-x=xValue;
-y=yValue;
-}
-
-bool operator < ( const Point &other) const {
-
-if(x<other.x) return true;
-if(x>other.x) return false;
-
-if(y<other.y) return true;
-if(y>other.y) return false;
-return false;
-}
-};
 
 // What kind of thing is this supposed to represent? Maybe we should discuss this.
 //Assume the movement is only up down right left, no diagonal movement allowed

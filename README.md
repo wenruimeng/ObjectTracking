@@ -15,5 +15,5 @@ pathFinder.h and pathFinder.cpp  are responsible to provide the path from curren
 
 pathTransfer.h and pathTransfer.cpp are responsible for converting the path to the command of linear and angular velocity of mini-shark. It publish velocity message several times according to the path information. It subscribe path message and mini-shark direction message. 
 
-follower.h and follower.cpp are responsible for aperiodic node that publishes the velocity command to the mini-shark. It subscribe the velocity message and publish velocity message. 
+
 

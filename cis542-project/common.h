@@ -1,10 +1,5 @@
-// why not #pragma once?
-#ifndef COMMON_H
-#define COMMON_H
+#pragma once
 
-// why are these included here?
-#include <stdlib.h>
-#include <stdio.h>
 #include <vector>
 
 class Direction {
@@ -46,4 +41,4 @@ return false;
 typedef std::vector<Point> Path;
 
 
-#endif
+
